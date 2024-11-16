@@ -1,0 +1,51 @@
+#include "thingProperties.h"  // This includes Wi-Fi and cloud property definitions
+#include <Servo.h>            // Include the Servo library to control the servo motor
+
+#define SERVO_PIN 9  // Pin where the servo is connected
+
+Servo myServo;  // Create a Servo object
+
+void setup() {
+  // Initialize serial communication for debugging:
+  Serial.begin(9600);
+  delay(1500);  // Wait for Serial Monitor to open
+
+  // Initialize properties defined in thingProperties.h
+  initProperties();
+
+  // Connect to Arduino IoT Cloud
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+
+  // Print debug info to the Serial Monitor for cloud connection status
+  setDebugMessageLevel(2);  // Set debug info level (0 = errors only, up to 4 for full details)
+  ArduinoCloud.printDebugInfo();
+
+  // Attach the servo to the defined pin
+  myServo.attach(SERVO_PIN);
+  myServo.write(0);  // Initialize the servo at 0 degrees
+}
+
+void loop() {
+  // Keep Arduino IoT Cloud updated
+  ArduinoCloud.update();
+  
+  // You can add more code here if needed
+}
+
+/*
+  Since windowBlindTilt is a READ_WRITE variable, 
+  onWindowBlindTiltChange() is called whenever a new value is received from the IoT Cloud.
+*/
+void onWindowBlindTiltChange() {
+  // Try using .getBrightness() to retrieve the numeric value of windowBlindTilt
+  int tiltValue = windowBlindTilt.getBrightness();  // Assuming .getBrightness() is available
+  
+  // Map the dimming percentage (tiltValue) to the servo angle (0-180 degrees)
+  int servoAngle = map(tiltValue, 0, 100, 0, 180);
+  
+  // Move the servo to the calculated angle
+  myServo.write(servoAngle);
+
+  // Print the received dimming value and calculated servo angle for debugging
+  Serial.println("Window blind tilt set to: " + String(tiltValue) + "% (" + String(servoAngle) + "°)");
+}
