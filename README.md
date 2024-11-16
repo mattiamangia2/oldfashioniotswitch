@@ -27,3 +27,7 @@ Components:
 Arduino nano 33 IoT;
 Servo Motor SM-S2309S;
 Anycubic Kobra 2 Pro 3d Printer with PLA filament
+
+
+Video here:
+$ https://vm.tiktok.com/ZNeccmdwG/ $ 
