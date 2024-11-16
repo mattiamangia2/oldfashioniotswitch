@@ -31,3 +31,5 @@ Anycubic Kobra 2 Pro 3d Printer with PLA filament
 
 Video here:
 $ https://vm.tiktok.com/ZNeccmdwG/ $ 
+
+![img1](https://github.com/user-attachments/assets/634e4847-e09c-438f-b694-26de03ee5d83)
